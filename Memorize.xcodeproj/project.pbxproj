@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		ED1218192B362E3400E9DCFE /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1218182B362E3400E9DCFE /* MemorizeApp.swift */; };
 		ED12181B2B362E3400E9DCFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED12181A2B362E3400E9DCFE /* ContentView.swift */; };
-		ED12181D2B362E3400E9DCFE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED12181C2B362E3400E9DCFE /* Item.swift */; };
 		ED12181F2B362E3D00E9DCFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED12181E2B362E3D00E9DCFE /* Assets.xcassets */; };
 		ED1218222B362E3D00E9DCFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED1218212B362E3D00E9DCFE /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -18,7 +17,6 @@
 		ED1218152B362E3400E9DCFE /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1218182B362E3400E9DCFE /* MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeApp.swift; sourceTree = "<group>"; };
 		ED12181A2B362E3400E9DCFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		ED12181C2B362E3400E9DCFE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		ED12181E2B362E3D00E9DCFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED1218212B362E3D00E9DCFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,7 +53,6 @@
 			children = (
 				ED1218182B362E3400E9DCFE /* MemorizeApp.swift */,
 				ED12181A2B362E3400E9DCFE /* ContentView.swift */,
-				ED12181C2B362E3400E9DCFE /* Item.swift */,
 				ED12181E2B362E3D00E9DCFE /* Assets.xcassets */,
 				ED1218202B362E3D00E9DCFE /* Preview Content */,
 			);
@@ -141,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED12181B2B362E3400E9DCFE /* ContentView.swift in Sources */,
-				ED12181D2B362E3400E9DCFE /* Item.swift in Sources */,
 				ED1218192B362E3400E9DCFE /* MemorizeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
