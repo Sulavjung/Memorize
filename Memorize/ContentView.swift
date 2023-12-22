@@ -13,23 +13,48 @@ import SwiftData
 struct ContentView: View {
     let emojis = ["😀", "😃", "😍", "🤪", "🥰", "😉"]
     
+    @State var cardCount: Int = 4
+    
     var body: some View {
-        HStack {
-            
-            //====The Use of the ForEach in Swift.====
-            //The first argument in the range.
-            //Second argument si the id: \.self for now. We will look into it later on deeply.
-            // Then you have index in inside the curly braces.
-            //ForEach view is very important when we are animating later on. The reason being is that, it keep tracks of the different things moving around nicely.
-            
-            //This is one way of using this is: ForEach(0..<4, id: \.self) { index in  STATEMENTS }
-            //Or you could do in the way below.
-            ForEach(emojis.indices, id: \.self) { index in
-                CardView(content: emojis[index])
+        
+        VStack {
+            HStack {
+                ForEach(0..<cardCount, id: \.self) { index in
+                    CardView(content: emojis[index])
+                }
             }
+            .foregroundColor(.orange)
+            
+            HStack {
+                
+                //====Button====
+                //How to add button and interact thing. Also, you noticed that we created a variable with @State becuase we are changing the self which update the UI.
+                //Here is one way:
+                // Button("Add Card") {
+                //  cardCount += 1;
+                // }
+                // Or,
+                //In swift, button could be easily as complex thing you can imagine. Using the action and lablel of Button.
+                Button(action: {
+                    if cardCount > 1 {
+                        cardCount -= 1;
+                    }
+                } , label: {
+                    Image(systemName: "rectangle.stack.fill.badge.minus")
+                } )
+                Spacer()
+                Button(action: {
+                    if cardCount < emojis.count {
+                        cardCount += 1;
+                    }
+                } , label: {
+                    Image(systemName: "rectangle.stack.fill.badge.plus")
+                } )
+            }
+            .imageScale(.large)
         }
         .padding()
-        .foregroundColor(.orange)
+        
     }
 }
 
