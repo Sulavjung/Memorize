@@ -20,18 +20,16 @@ struct ContentView: View {
         VStack {
             
             Cards
-            HStack {
-                cardRemover
-                Spacer()
-                cardAdder
-                
-            }
-            .imageScale(.large)
+            cardCountAdjusters
+            
         }
         .padding()
         
     }
     
+    
+    //====Implicit Return====
+    //This isn't view builder but rather a function. If it is one line of code for function and computed properties, you don't need return before HStack becuase of ====Implicit Return====. 
     var Cards: some View {
         HStack {
             ForEach(0..<cardCount, id: \.self) { index in
@@ -39,6 +37,16 @@ struct ContentView: View {
             }
         }
         .foregroundColor(.orange)
+    }
+    
+    var cardCountAdjusters: some View {
+        HStack {
+            cardRemover
+            Spacer()
+            cardAdder
+            
+        }
+        .imageScale(.large)
     }
     
     var cardRemover: some View {
