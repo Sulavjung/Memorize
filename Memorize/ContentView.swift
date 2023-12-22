@@ -18,43 +18,47 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            HStack {
-                ForEach(0..<cardCount, id: \.self) { index in
-                    CardView(content: emojis[index])
-                }
-            }
-            .foregroundColor(.orange)
             
+            Cards
             HStack {
-                
-                //====Button====
-                //How to add button and interact thing. Also, you noticed that we created a variable with @State becuase we are changing the self which update the UI.
-                //Here is one way:
-                // Button("Add Card") {
-                //  cardCount += 1;
-                // }
-                // Or,
-                //In swift, button could be easily as complex thing you can imagine. Using the action and lablel of Button.
-                Button(action: {
-                    if cardCount > 1 {
-                        cardCount -= 1;
-                    }
-                } , label: {
-                    Image(systemName: "rectangle.stack.fill.badge.minus")
-                } )
+                cardRemover
                 Spacer()
-                Button(action: {
-                    if cardCount < emojis.count {
-                        cardCount += 1;
-                    }
-                } , label: {
-                    Image(systemName: "rectangle.stack.fill.badge.plus")
-                } )
+                cardAdder
+                
             }
             .imageScale(.large)
         }
         .padding()
         
+    }
+    
+    var Cards: some View {
+        HStack {
+            ForEach(0..<cardCount, id: \.self) { index in
+                CardView(content: emojis[index])
+            }
+        }
+        .foregroundColor(.orange)
+    }
+    
+    var cardRemover: some View {
+        Button(action: {
+            if cardCount > 1 {
+                cardCount -= 1;
+            }
+        } , label: {
+            Image(systemName: "rectangle.stack.fill.badge.minus")
+        } )
+    }
+    
+    var cardAdder: some View {
+        Button(action: {
+            if cardCount < emojis.count {
+                cardCount += 1;
+            }
+        } , label: {
+            Image(systemName: "rectangle.stack.fill.badge.plus")
+        } )
     }
 }
 
