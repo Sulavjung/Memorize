@@ -15,9 +15,9 @@ struct ContentView: View {
     var body: some View {
         HStack {
             CardView(isFaceUp: true)
-            CardView()
-            CardView()
-            CardView()
+            CardView(isFaceUp: true)
+            CardView(isFaceUp: true)
+            CardView(isFaceUp: true)
         }
         .padding()
         .foregroundColor(.orange)
@@ -25,18 +25,30 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUp: Bool = false
+    @State var isFaceUp = false
     var body: some View {
-        if isFaceUp {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(lineWidth: 2)
+        
+        
+        //====ViewBuilder==== can have variables. It can only have list, local variables, and conditionals.
+        //====let vs var: ==== var base: RoundedRectangle = RoundedRectangle(cornerRadius: 12) -> We never say this: Because var means it will change but we will never change this variable. So, we will use let. So, we mostly only use let in viewBuilder.
+        //====Type Inference: ===== let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12) -> So, we dont do this either even when it is correct. The reason, we let swift decide to infer what it is. Swift can tell what it is seing what it is returning. Since, RoundedRectangel returns just RoundedRectange, the swift auto infer the variable to be the RoundedRectangle.
+        //We do similar thing to the above isFaceUp. We can remove the : Bool.
+        
+        ZStack {
+            let base = RoundedRectangle(cornerRadius: 12)
+            if isFaceUp {
+                base.fill(.white)
+                base.strokeBorder(lineWidth: 2)
                 Text("👻").font(.largeTitle)
+            }else {
+                base.fill()
             }
-        } else {
-            RoundedRectangle(cornerRadius: 12)
+        }
+        .onTapGesture{
+            //We can't do isFaceUp = !isFaceUp alone becuase self is immutable. So, we have to add @State to var isFaceUp.
+            //What the ====@State==== Does then? -> The state creates a pointer to the memory that hold the isFaceUp.
+            //So we could also do isFaceUp.toggle() which is available for the Bool struct in swift.
+            isFaceUp.toggle();
         }
     }
 }
