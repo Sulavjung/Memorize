@@ -18,18 +18,13 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            
             Cards
             cardCountAdjusters
-            
         }
         .padding()
         
     }
-    
-    
-    //====Implicit Return====
-    //This isn't view builder but rather a function. If it is one line of code for function and computed properties, you don't need return before HStack becuase of ====Implicit Return====. 
+
     var Cards: some View {
         HStack {
             ForEach(0..<cardCount, id: \.self) { index in
@@ -49,24 +44,24 @@ struct ContentView: View {
         .imageScale(.large)
     }
     
-    var cardRemover: some View {
+    // ==== func in SwiftUI ====
+    // This is all about func and how do we define a func in swift. Here is a perfect example of that.
+    // We refactored the previous code of creating the cardCound incrementor and decrementor with this one function. This will allow us to create same thing but in smart way.
+    func cardCountAdjusters(by offset: Int, symbol: String) -> some View {
         Button(action: {
-            if cardCount > 1 {
-                cardCount -= 1;
-            }
-        } , label: {
-            Image(systemName: "rectangle.stack.fill.badge.minus")
-        } )
+            cardCount += offset
+        }, label: {
+            Image(systemName: symbol)
+        })
+        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)          // This is to make sure that the overflow doesn't happen in array.
+    }
+
+    var cardRemover: some View {
+        cardCountAdjusters(by: -1, symbol: "rectangle.stack.fill.badge.minus")
     }
     
     var cardAdder: some View {
-        Button(action: {
-            if cardCount < emojis.count {
-                cardCount += 1;
-            }
-        } , label: {
-            Image(systemName: "rectangle.stack.fill.badge.plus")
-        } )
+        cardCountAdjusters(by: +1, symbol: "rectangle.stack.fill.badge.plus")
     }
 }
 
