@@ -27,12 +27,7 @@ struct ContentView: View {
     }
 
     var Cards: some View {
-        
-        //====LazyGrid====
-        //It is something that we see here. LazyVGrid takes colums which takes array of GridItem. You can think of these as flex items.
-        //So, you could do LazyVGrid(columns: [GridItem(), GridItem(), GridItem()] to have 3 items in each row and create 3 columns. And auto flex.
-        //And there is another way to create something ismilar like the one that is being used below were we are telling the LazyVGrid that the the
-        // GridItem that we want is adaptive and has minimum size of 120. Create each of those and fill that accordingly.
+
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
@@ -75,13 +70,30 @@ struct CardView: View {
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
-            if isFaceUp {
+            
+            // ====Opacity vs if-else ====
+            // when we use if-else, once the whole row of card is face up, it is collapsing to having no height to minimum height as we only have base.fill.
+            //To overcome that, we would want to make the rounded rectange opacity to change rather than deleting the whole thing.
+            //Here is the example of how we are changing this if code to what we want.
+            // if isFaceUp {
+            //     base.fill(.white)
+            //     base.strokeBorder(lineWidth: 2)
+            //     Text(content).font(.largeTitle)
+            // }else {
+            //   base.fill()
+            // }
+            
+            //Also, the reason we are using the Group here is because the if doesn't allow us to do the opacity. So, we get the view from the group of things so that
+            //we could set the opacity according to the faceUp value.
+            
+            Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
                 Text(content).font(.largeTitle)
-            }else {
-                base.fill()
             }
+            .opacity(isFaceUp ? 1 : 0)
+            
+            base.fill(.orange).opacity(isFaceUp ? 0: 1)
         }
         .onTapGesture{
             isFaceUp.toggle();
