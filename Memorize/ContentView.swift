@@ -19,6 +19,7 @@ struct ContentView: View {
         
         VStack {
             Cards
+            Spacer()
             cardCountAdjusters
         }
         .padding()
@@ -26,7 +27,13 @@ struct ContentView: View {
     }
 
     var Cards: some View {
-        HStack {
+        
+        //====LazyGrid====
+        //It is something that we see here. LazyVGrid takes colums which takes array of GridItem. You can think of these as flex items.
+        //So, you could do LazyVGrid(columns: [GridItem(), GridItem(), GridItem()] to have 3 items in each row and create 3 columns. And auto flex.
+        //And there is another way to create something ismilar like the one that is being used below were we are telling the LazyVGrid that the the
+        // GridItem that we want is adaptive and has minimum size of 120. Create each of those and fill that accordingly.
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
             }
@@ -43,17 +50,14 @@ struct ContentView: View {
         }
         .imageScale(.large)
     }
-    
-    // ==== func in SwiftUI ====
-    // This is all about func and how do we define a func in swift. Here is a perfect example of that.
-    // We refactored the previous code of creating the cardCound incrementor and decrementor with this one function. This will allow us to create same thing but in smart way.
+
     func cardCountAdjusters(by offset: Int, symbol: String) -> some View {
         Button(action: {
             cardCount += offset
         }, label: {
             Image(systemName: symbol)
         })
-        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)          // This is to make sure that the overflow doesn't happen in array.
+        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
     }
 
     var cardRemover: some View {
