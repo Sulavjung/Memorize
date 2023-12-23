@@ -18,7 +18,10 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            Cards
+            ScrollView {                                            // With the added aspect ratio. The view is overflowing and the cardCountAdjesters are getting hidden once too many cards are added.
+                                                                    // So, we are adding the ScrollView here to adjust that. 
+                Cards
+            }
             Spacer()
             cardCountAdjusters
         }
@@ -31,6 +34,7 @@ struct ContentView: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
+                    .aspectRatio(2/3, contentMode: .fit)                //We added the aspect ratio with contentMode to fit for the aspect ratio.
             }
         }
         .foregroundColor(.orange)
@@ -70,29 +74,12 @@ struct CardView: View {
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
-            
-            // ====Opacity vs if-else ====
-            // when we use if-else, once the whole row of card is face up, it is collapsing to having no height to minimum height as we only have base.fill.
-            //To overcome that, we would want to make the rounded rectange opacity to change rather than deleting the whole thing.
-            //Here is the example of how we are changing this if code to what we want.
-            // if isFaceUp {
-            //     base.fill(.white)
-            //     base.strokeBorder(lineWidth: 2)
-            //     Text(content).font(.largeTitle)
-            // }else {
-            //   base.fill()
-            // }
-            
-            //Also, the reason we are using the Group here is because the if doesn't allow us to do the opacity. So, we get the view from the group of things so that
-            //we could set the opacity according to the faceUp value.
-            
             Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
                 Text(content).font(.largeTitle)
             }
             .opacity(isFaceUp ? 1 : 0)
-            
             base.fill(.orange).opacity(isFaceUp ? 0: 1)
         }
         .onTapGesture{
