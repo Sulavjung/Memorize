@@ -10,8 +10,8 @@
 
 import Foundation
 
-
-struct MemoryGame<CardContent> {
+//Adding where is we care a little.
+struct MemoryGame<CardContent> where CardContent: Equatable {
     
     private(set) var cards: Array<Card>
     
@@ -24,8 +24,8 @@ struct MemoryGame<CardContent> {
         //In Swift, we use _ to say don't care.
         for pairIndex in 0..<max(2, numberOfPairOfCards) {
             let content: CardContent = cardContentFactory(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id: "\(pairIndex + 1)a" ))
+            cards.append(Card(content: content, id: "\(pairIndex + 1)b" ))
         }
     }
     
@@ -39,9 +39,16 @@ struct MemoryGame<CardContent> {
         print(cards)
     }
     
-    struct Card {
+    struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
         var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
+        
+        var id: String
+        
+        var debugDescription: String {
+            "\(id): \(content) \(isFaceUp ? "UP" : "Down") \(isMatched ? "Matched" : "")"
+        }
+
     }
 }

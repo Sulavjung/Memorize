@@ -9,11 +9,11 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
-    private static let emojis = ["😀", "😃", "😍", "🤪", "🥰", "😉", "😀", "😃", "😍", "🤪", "🥰", "😉"];
+    private static let emojis = ["🍅", "🥦", "🌽", "🍠", "🌶️", "🥔", "🍇", "🍈","🍉", "🍊", "🍋", "🍌", "🍍", "🍎", "🍏", "🍐", "🍑", "🍒","🥑", "🍓", "🥒", "🥬", "🍄", "🥥", "🥕"];
     
-    @Published private var model: MemoryGame<String> = MemoryGame(numberOfPairOfCards: 6) { pairIndex in
+    @Published private var model: MemoryGame<String> = MemoryGame(numberOfPairOfCards: 14) { pairIndex in
         if emojis.indices.contains(pairIndex){
-            return ["😀", "😃", "😍", "🤪", "🥰", "😉", "😀", "😃", "😍", "🤪", "🥰", "😉"][pairIndex]
+            return emojis[pairIndex]
         } else {
             return "|?";
         }
