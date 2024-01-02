@@ -12,7 +12,7 @@ import SwiftData
 struct MemorizeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmojiMemoryGameView()
         }
     }
 }

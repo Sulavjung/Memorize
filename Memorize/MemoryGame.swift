@@ -22,10 +22,10 @@ struct MemoryGame<CardContent> {
         // add numberOfPairsOfCards x 2 cards.
         // We use _ inplace of the pairIndex as we are not using the pariIndex.
         //In Swift, we use _ to say don't care.
-        for _ in 0..<numberOfPairOfCards {
+        for pairIndex in 0..<max(2, numberOfPairOfCards) {
             let content: CardContent = cardContentFactory(pairIndex)
-            cards.append(Card(content: <#T##CardContent#>))
-            cards.append(Card(content: <#T##CardContent#>))
+            cards.append(Card(content: content))
+            cards.append(Card(content: content))
         }
     }
     
@@ -34,7 +34,7 @@ struct MemoryGame<CardContent> {
     }
     
     struct Card {
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
     }
