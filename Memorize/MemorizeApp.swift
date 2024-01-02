@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct MemorizeApp: App {
+    //We use @stateObject to make something as true. 
+    @StateObject var game = EmojiMemoryGame()
+    
     var body: some Scene {
         WindowGroup {
-            EmojiMemoryGameView()
+            EmojiMemoryGameView(viewModel: game)
         }
     }
 }

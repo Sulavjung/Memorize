@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
     private static let emojis = ["😀", "😃", "😍", "🤪", "🥰", "😉", "😀", "😃", "😍", "🤪", "🥰", "😉"];
     
-    private var model: MemoryGame<String> = MemoryGame(numberOfPairOfCards: 16) { pairIndex in
+    @Published private var model: MemoryGame<String> = MemoryGame(numberOfPairOfCards: 6) { pairIndex in
         if emojis.indices.contains(pairIndex){
             return ["😀", "😃", "😍", "🤪", "🥰", "😉", "😀", "😃", "😍", "🤪", "🥰", "😉"][pairIndex]
         } else {

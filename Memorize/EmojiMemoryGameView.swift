@@ -12,7 +12,7 @@ import SwiftData
 
 struct EmojiMemoryGameView: View {
     
-    var viewModel: EmojiMemoryGame = EmojiMemoryGame()
+    @ObservedObject var viewModel: EmojiMemoryGame = EmojiMemoryGame()
     
     
     @State var cardCount: Int = 4
@@ -86,5 +86,5 @@ struct CardView: View {
 
 
 #Preview {
-    EmojiMemoryGameView()
+    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
 }
