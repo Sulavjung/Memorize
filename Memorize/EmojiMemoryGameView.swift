@@ -10,7 +10,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
     
     var viewModel: EmojiMemoryGame
     let emojis = ["😀", "😃", "😍", "🤪", "🥰", "😉", "😀", "😃", "😍", "🤪", "🥰", "😉"]
@@ -74,5 +74,5 @@ struct CardView: View {
 
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView()
 }
