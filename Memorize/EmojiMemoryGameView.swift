@@ -19,12 +19,16 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         
-        
+        VStack {
             ScrollView {
                 Cards
             }
-        .padding()
-        
+            .padding()
+            
+            Button("Shuffle"){
+                viewModel.shuffle()
+            }
+        }
     }
 
     var Cards: some View {

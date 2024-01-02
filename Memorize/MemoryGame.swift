@@ -33,6 +33,12 @@ struct MemoryGame<CardContent> {
         
     }
     
+    //self is immutable. Self shouldn't change the model. So, we need to use the mutating to make use aware that we are doing it intentionally.
+    mutating func shuffle(){
+        cards.shuffle()
+        print(cards)
+    }
+    
     struct Card {
         var isFaceUp: Bool = true
         var isMatched: Bool = false
