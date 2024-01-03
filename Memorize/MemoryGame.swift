@@ -19,9 +19,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     init(numberOfPairOfCards: Int, cardContentFactory: (Int) -> CardContent){
         cards = Array<Card>()
         
-        // add numberOfPairsOfCards x 2 cards.
-        // We use _ inplace of the pairIndex as we are not using the pariIndex.
-        //In Swift, we use _ to say don't care.
+        
         for pairIndex in 0..<max(2, numberOfPairOfCards) {
             let content: CardContent = cardContentFactory(pairIndex)
             cards.append(Card(content: content, id: "\(pairIndex + 1)a" ))
@@ -29,30 +27,71 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    mutating func choose(card: Card) {
-        if let chosenIndex = index(of: card){
-            cards[chosenIndex].isFaceUp.toggle();
-        }
-    }
-    
-    //Introduction to Enum, optionals, if let. Will be redefining this and the above function differently to showcase that further.
-    private func index(of card: Card) -> Int? {
-        for index in cards.indices {
-            if cards[index].id == card.id {
-                return index
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            var faceUpCardIndices = [Int]()
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    faceUpCardIndices.append(index)
+                }
+            }
+            
+            if faceUpCardIndices.count == 1 {
+                return faceUpCardIndices.first
+            } else {
+                return nil
             }
         }
-        return nil
+        set {
+            for index in cards.indices {
+                if index == newValue{
+                    cards[index].isFaceUp = true
+                } else {
+                    cards[index].isFaceUp = false
+                }
+            }
+            
+        }
     }
     
-    //self is immutable. Self shouldn't change the model. So, we need to use the mutating to make use aware that we are doing it intentionally.
+    //Here we changed the logic to find card in cards.
+    //NOw working on the game logic.
+    mutating func choose(card: Card) {
+        if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }){
+            if(!cards[chosenIndex].isFaceUp && !cards[chosenIndex].isMatched){
+                if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                    if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                        cards[chosenIndex].isMatched = true
+                        cards[potentialMatchIndex].isMatched = true
+                    }
+                    indexOfTheOneAndOnlyFaceUpCard = nil
+                } else {
+                    for index in cards.indices {
+                        cards[index].isFaceUp = false
+                    }
+                    indexOfTheOneAndOnlyFaceUpCard = chosenIndex
+                }
+                
+                
+                
+                cards[chosenIndex].isFaceUp = true;
+            }
+            
+            
+            
+        }
+    }
+    
+    
+    
+    
     mutating func shuffle(){
         cards.shuffle()
         print(cards)
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
         
