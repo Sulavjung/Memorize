@@ -30,17 +30,19 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     mutating func choose(card: Card) {
-        let chosenIndex = index(of: card)
-        cards[chosenIndex].isFaceUp.toggle();
+        if let chosenIndex = index(of: card){
+            cards[chosenIndex].isFaceUp.toggle();
+        }
     }
     
-    func index(of card: Card) -> Int {
+    //Introduction to Enum, optionals, if let. Will be redefining this and the above function differently to showcase that further.
+    private func index(of card: Card) -> Int? {
         for index in cards.indices {
             if cards[index].id == card.id {
                 return index
             }
         }
-        return 0 //FIXME: bogus!
+        return nil
     }
     
     //self is immutable. Self shouldn't change the model. So, we need to use the mutating to make use aware that we are doing it intentionally.
