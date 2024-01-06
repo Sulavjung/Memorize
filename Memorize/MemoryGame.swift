@@ -45,20 +45,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 } else {
                     indexOfTheOneAndOnlyFaceUpCard = chosenIndex
                 }
-                
-                
-                
+  
                 cards[chosenIndex].isFaceUp = true;
             }
-            
-            
-            
+  
         }
     }
     
-    
-    
-    
+
     mutating func shuffle(){
         cards.shuffle()
         print(cards)
